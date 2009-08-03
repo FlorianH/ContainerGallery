@@ -27,7 +27,7 @@
 
 
 /**
-* The Positions object hods the screen positions for
+* The Positions object holds the screen positions for
 * the animation key points:
 * - ehe starting point for the animation (start)
 * - the ending point for the animation (stop)
@@ -38,7 +38,7 @@
 */
 var Positions = {
 
-  _center: function() {
+  '_center': function() {
   
     return {
       x: document.viewport.getWidth() /2,
@@ -47,7 +47,7 @@ var Positions = {
       
   },//_center()
 
-  start: function( id ) {
+  'start': function( id ) {
   
     return {
       x: document.viewport.getWidth(),
@@ -55,7 +55,7 @@ var Positions = {
   
   },//start()
   
-  middle: function( id ) {
+  'middle': function( id ) {
   
     return {
       x: Positions._center().x - $(id).getWidth() /2,
@@ -64,7 +64,7 @@ var Positions = {
   
   },//middle()
   
-  stop: function( id ) {
+  'stop': function( id ) {
 
     return {
       x: $(id).getWidth() *-1,
@@ -85,14 +85,14 @@ var Positions = {
 */
 var ResizeDetector = {
 
-  init: function() {
+  'init': function() {
   
     ResizeDetector.buffer = document.viewport.getDimensions();
     new PeriodicalExecuter(ResizeDetector.check, 1);
     
   }, //init()
   
-  check: function() {
+  'check': function() {
     
     now = document.viewport.getDimensions();
     
@@ -114,7 +114,7 @@ var ContainerHandler = {
   * Moves the item just above the top left position
   * of the browser's viewport.
   */
-  init: function( id ) {
+  'init': function( id ) {
 
     //top left
     $(id).setStyle({
@@ -125,7 +125,7 @@ var ContainerHandler = {
 
   },//init()
 
-  show: function( id ) {
+  'show': function( id ) {
 
     new_position = Positions.middle(id);
     new_position.mode = 'absolute';
@@ -137,7 +137,7 @@ var ContainerHandler = {
 
   },//show()
 
-  hide: function( id ) {
+  'hide': function( id ) {
 
     new_position = Positions.stop(id);
     new_position.mode = 'absolute';
@@ -157,7 +157,7 @@ var ContainerHandler = {
 
 var MultiContainerHandler = {
 
-  init: function() {
+  'init': function() {
 
     if ($('loading')){
       ContainerHandler.init('loading');
@@ -179,7 +179,7 @@ var MultiContainerHandler = {
 
   },//init()
 
-  next: function() {
+  'next': function() {
   
     if ($('loading')){
       ContainerHandler.hide('loading');
@@ -197,12 +197,14 @@ var MultiContainerHandler = {
   },//next()
 
 
-  correct_position: function() {
+  'correct_position': function() {
+  
     ContainerHandler.show(MultiContainerHandler.containers[MultiContainerHandler.current].id);
+    
   },//correct_position()
 
 
-  jump_to: function(num) {
+  'jump_to': function(num) {
 
     //Do nothing, if the selected item is already the current item
     if (MultiContainerHandler.current == num-1) return false;
@@ -216,6 +218,3 @@ var MultiContainerHandler = {
 
 
 }//MultiContainerHandler
-
-
-
